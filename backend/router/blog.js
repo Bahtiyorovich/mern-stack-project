@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
             res.status(200).json({state: true, msg:'All products found', innerData: blogs})
         }
         else {
-            res.status(404).json('Blog array is empty at the moment')
+            res.status(201).json('Blog array is empty at the moment')
         }
     }catch(error){
         res.status(500).json({state: false, msg:'All products not found', innerData: null})
@@ -49,10 +49,10 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const {id} = req.params
-        await Blocks.findByIdAndRemove(id)
-        res.status(201).json({status: true ,msg:'deleted Item', innerData: null})
+        await Blogs.findByIdAndRemove(id)
+        res.status(200).json({status: true, msg:'deleted Item', innerData: null})
     } catch {
-        res.status(500).json({state: false ,msg:'server error', innerData: null})
+        res.status(500).json({state: false, msg:'server error', innerData: null})
     }
 })
 
