@@ -9,7 +9,7 @@ router.get('/', async (req, res ) => {
         if(students.length){
             res.status(200).json({state: true, msg: 'All Students info found', innerData: students})
         }else {
-            res.status(404).json('Students array is empty at the moment')
+            res.status(201).json('Students array is empty at the moment')
         }
     } catch{
         res.status(500).json({state: false, msg: 'Students info not found', innerData: null})
@@ -36,7 +36,7 @@ router.post('/', async(req, res) => {
     try {
         const {error} = validateStudentSchema(req.body)
         if(error){
-            res.status(404).json({state: false, msg: error.details[0].message, innerData: null})
+            return res.status(404).json({state: false, msg: error.details[0].message, innerData: null})
         }
         const newStudent = await Students.create(req.body)
         res.status(201).json({state: true, msg: 'New Student`s info created', innerData: newStudent})
