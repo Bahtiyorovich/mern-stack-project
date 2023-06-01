@@ -64,7 +64,7 @@ router.put("/:id", async (req, res) => {
         if(error){
             return res.status(404).json({state: false, msg:error.details[0].message, innerData: null})
         }
-        const updateItem = await Blocks.findByIdAndUpdate(id, req.body)
+        const updateItem = await Blogs.findByIdAndUpdate(id, req.body)
         res.status(201).json({state: true ,msg: 'Item is update', innerData: updateItem})
     } catch {
         res.status(500).json({ state: false , msg:'server error', innerData: null})
