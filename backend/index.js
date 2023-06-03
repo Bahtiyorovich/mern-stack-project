@@ -12,9 +12,12 @@ app.use(cors())
 // Routers
 const Blogs = require('./router/blog.js')
 const Students = require('./router/student.js')
+const Users = require('./router/user.js')
 
 app.use('/blogs', Blogs)
 app.use('/students', Students)
+app.use('/users', Users)
+
 
 // MONGODB_CONNECTION
 connect(process.env.MONGODB_URL)

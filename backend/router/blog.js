@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const {Blogs, validateBlogSchema} = require('../models/blogSchema.js')
+const {auth} = require('../middleware/auth.js')
 
-
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try{
         const blogs = await Blogs.find()
         if(blogs.length) {
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 })
 
 // single route
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth,   async (req, res) => {
     try{
         let {id} = req.params
         let oneItem = await Blocks.findById(id)
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', auth,  async (req, res) => {
     try{
         const {error} = validateBlogSchema(req.body)
         if(error){
@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
         const {id} = req.params
         await Blogs.findByIdAndRemove(id)
@@ -57,7 +57,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
     try {
         const {id} = req.params
         const {error} = validateBlogSchema(req.body)
